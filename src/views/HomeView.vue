@@ -1,8 +1,50 @@
+
+<script setup>
+import NavbarComponent from '@/components/Navbar/NavbarComponent.vue'
+import FooterComponent from '@/components/Footer/FooterComponent.vue'
+import LogoSFAzul from '@/assets/icons/LogoSFAzul.vue'
+import WhatsappIcon from '@/assets/icons/WhatsappIcon.vue'
+import { computed } from 'vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+
+import { RouterLink } from 'vue-router'
+import { ref, onMounted, onUnmounted } from 'vue'
+import SuculentaHomeIcon from '@/assets/icons/SuculentaHomeIcon.vue'
+import TijoloHomeIcon from '@/assets/icons/TijoloHomeIcon.vue'
+
+const alturaTela = ref(window.innerHeight)
+
+const atualizaAlturaTela = () => {
+  alturaTela.value = window.innerHeight
+}
+
+const { mobile } = useDisplay()
+
+const isMobile = computed(() => mobile.value)
+
+onMounted(() => {
+  window.addEventListener('resize', atualizaAlturaTela)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', atualizaAlturaTela)
+})
+
+function envio() {
+  const mensagem = encodeURI(
+    `Olá 😊.$Fiquei interessado no seu sistema, poderia me contar um pouco mais sobre?`
+  )
+
+  window.open(
+    `https://api.whatsapp.com/send?phone=5567999832455&text=${mensagem.replaceAll('$', '%0D')}`
+  )
+}
+</script>
+
+
 <template>
-  <header>
-    <NavbarComponent />
-  </header>
-  <main>
+  <NavbarComponent v-if="!isMobile" />
+  <main v-if="!isMobile">
     <div class="container">
       <div class="container-left">
         <h1>
@@ -25,7 +67,7 @@
       </div>
     </div>
   </main>
-  <div class="footer">
+  <div class="footer" v-if="!isMobile">
     <WhatsappIcon class="whatsapp-icon" @click="envio" />
     <div class="subfooter">
       <div class="subfooter-left">
@@ -55,41 +97,36 @@
     </div>
     <FooterComponent />
   </div>
+
+  <v-layout v-if="isMobile">
+    <NavbarComponent />
+    <v-main>
+      <div class="container">
+        <div class="container-top">
+          <SuculentaHomeIcon class="cacto" />
+          <TijoloHomeIcon class="tijolo" />
+          <h1>
+            Facilite o <span>processo de gestão</span> da sua empresa com nossa solução de alto
+            padrão
+          </h1>
+          <h4>
+            A SF Sistemas é uma empresa com soluções sistêmicas para facilitar a gestão da sua
+            empresa de forma prática, fácil, com ótima relação custo benefício, aliando sempre a
+            qualidade e profissionalismo.
+          </h4>
+          <div class="botoes">
+            <button @click="envio">Fale Conosco</button>
+            <RouterLink :to="{ name: 'solucoes' }">
+              <button>Saiba Mais</button>
+            </RouterLink>
+          </div>
+        </div>
+        <img src="@/assets/images/Mobile/Home/Homem.png" alt="" class="homem-home" />
+      </div>
+      <FooterComponent />
+    </v-main>
+  </v-layout>
 </template>
-
-<script setup>
-import NavbarComponent from '@/components/Navbar/NavbarComponent.vue'
-import FooterComponent from '@/components/Footer/FooterComponent.vue'
-import LogoSFAzul from '@/assets/icons/LogoSFAzul.vue'
-import WhatsappIcon from '@/assets/icons/WhatsappIcon.vue'
-
-import { RouterLink } from 'vue-router'
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const alturaTela = ref(window.innerHeight)
-
-const atualizaAlturaTela = () => {
-  alturaTela.value = window.innerHeight
-}
-
-onMounted(() => {
-  window.addEventListener('resize', atualizaAlturaTela)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', atualizaAlturaTela)
-})
-
-function envio() {
-  const mensagem = encodeURI(
-    `Olá 😊.$Fiquei interessado no seu sistema, poderia me contar um pouco mais sobre?`
-  )
-
-  window.open(
-    `https://api.whatsapp.com/send?phone=5567999832455&text=${mensagem.replaceAll('$', '%0D')}`
-  )
-}
-</script>
 
 <style scoped>
 main {
@@ -734,6 +771,182 @@ main {
   .social {
     height: 100%;
     gap: calc(0.5rem * 1024 / 1920);
+  }
+}
+
+@media screen and (max-width: 820px) {
+  main {
+    height: 100vh;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container-top {
+    padding-top: calc(5rem * 820 / 820);
+    padding-left: calc(5rem * 820 / 820);
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(1rem * 820 / 820);
+  }
+
+  .container-top h1 {
+    font-size: calc(1rem * 820 / 360);
+    font-family: Be Vietnam Pro, sans-serif;
+    font-weight: 700;
+    color: white;
+  }
+
+  .container-top h1 span {
+    color: var(--azul-principal);
+  }
+
+  .container-top h4 {
+    font-size: calc(0.8rem * 820 / 820);
+    text-align: justify;
+    width: 65%;
+    font-family: Be Vietnam Pro, sans-serif;
+    color: white;
+    font-weight: 400;
+  }
+
+  .botoes {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  .botoes button {
+    padding: 0;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .tijolo {
+    position: absolute;
+    right: 0;
+    bottom: 450px;
+  }
+
+  .homem-home {
+    position: absolute;
+    height: 400px;
+    bottom: 0;
+    right: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  main {
+    height: 100vh;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container-top {
+    padding-top: calc(5rem * 600 / 820);
+    padding-left: calc(5rem * 600 / 820);
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(1rem * 600 / 820);
+  }
+
+  .container-top h1 {
+    font-size: 1.8rem;
+    font-family: Be Vietnam Pro, sans-serif;
+    font-weight: 700;
+    color: white;
+  }
+
+  .container-top h1 span {
+    color: var(--azul-principal);
+  }
+
+  .container-top h4 {
+    font-size: 0.8;
+    text-align: justify;
+    width: 65%;
+    font-family: Be Vietnam Pro, sans-serif;
+    color: white;
+    font-weight: 400;
+  }
+
+  .botoes button {
+    font-size: 0.8rem;
+  }
+
+  .tijolo {
+    position: absolute;
+    right: 0;
+    bottom: 450px;
+  }
+
+  .homem-home {
+    position: absolute;
+    height: 400px;
+    bottom: 0;
+    right: 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  main {
+    height: 100vh;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container-top {
+    padding-top: calc(5rem * 400 / 820);
+    padding-left: calc(5rem * 400 / 820);
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(1rem * 600 / 820);
+  }
+
+  .container-top h1 {
+    font-size: 1.8rem;
+    font-family: Be Vietnam Pro, sans-serif;
+    font-weight: 700;
+    color: white;
+  }
+
+  .container-top h1 span {
+    color: var(--azul-principal);
+  }
+
+  .container-top h4 {
+    font-size: 0.8;
+    text-align: justify;
+    width: 65%;
+    font-family: Be Vietnam Pro, sans-serif;
+    color: white;
+    font-weight: 400;
+  }
+
+  .botoes button {
+    font-size: 0.8rem;
+  }
+
+  .tijolo {
+    position: absolute;
+    right: 0;
+    bottom: 450px;
+  }
+
+  .homem-home {
+    position: absolute;
+    height: 400px;
+    bottom: 0;
+    right: 0;
   }
 }
 </style>

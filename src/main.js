@@ -21,6 +21,12 @@ const vuetify = createVuetify({
     sets: {
       fa
     }
+  },
+  display: {
+    mobileBreakpoint: 'sm',
+    thresholds: {
+      sm: 820
+    }
   }
 })
 

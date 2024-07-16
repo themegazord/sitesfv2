@@ -1,8 +1,16 @@
 <script setup>
+import WhatsappIcon from '@/assets/icons/WhatsappIcon.vue'
+import { computed } from 'vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+
+const { mobile } = useDisplay()
+
+const isMobile = computed(() => mobile.value)
 </script>
 
 <template>
   <footer>
+    <WhatsappIcon class="whatsapp-icon" @click="envio" v-if="isMobile" />
     <span>Copyright ® 2024 Todos os direitos reservados</span>
     <span>Criado por SF Sistemas & UX Bayo</span>
   </footer>
@@ -57,6 +65,55 @@ footer {
   footer {
     font-size: calc(0.5rem * 1024 / 1440);
     padding: calc(0.1rem * 1024 / 1440) calc(5rem * 1024 / 1440);
+  }
+}
+
+@media screen and (max-width: 820px) {
+  footer {
+    font-size: 0.5rem;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 3vh;
+    bottom: 0;
+  }
+
+  .whatsapp-icon {
+    scale: 0.5;
+    position: absolute;
+    left: 10px;
+    bottom: -20px;
+  }
+}
+@media screen and (max-width: 600px) {
+  footer {
+    font-size: calc(0.5rem * 600 / 820);
+  }
+
+  .whatsapp-icon {
+    left: calc(10px * 600 / 820);
+    bottom: -20px;
+  }
+}
+@media screen and (max-width: 400px) {
+  footer {
+    font-size: calc(0.5rem * 400 / 820);
+  }
+
+  .whatsapp-icon {
+    left: calc(10px * 400 / 820);
+    bottom: -20px;
+  }
+}
+@media screen and (max-width: 300px) {
+  footer {
+    font-size: calc(0.5rem * 300 / 820);
+  }
+
+  .whatsapp-icon {
+    left: calc(10px * 300 / 820);
+    bottom: -20px;
   }
 }
 </style>
