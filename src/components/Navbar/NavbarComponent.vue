@@ -41,7 +41,7 @@ function envio() {
 const download = async () => {
   try {
     const response = await axios({
-      url: 'http://env-6007583.jelastic.saveincloud.net/api/downloadAPK',
+      url: 'https://apidownload.jelastic.saveincloud.net/api/downloadAPK',
       method: 'GET',
       responseType: 'blob' // Importante para indicar que estamos esperando um blob de arquivo
     })
