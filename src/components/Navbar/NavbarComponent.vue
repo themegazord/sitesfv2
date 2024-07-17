@@ -46,7 +46,7 @@ const download = async () => {
       responseType: 'blob' // Importante para indicar que estamos esperando um blob de arquivo
     })
 
-    const blob = new Blob([response.data], { type: response.data.type })
+    const blob = new Blob([response.data], { type: 'application/vnd.android.package-archive' })
     const link = document.createElement('a')
     link.href = URL.createObjectURL(blob)
     link.download = 'safimobile.apk' // Nome do arquivo que será baixado
