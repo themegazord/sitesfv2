@@ -1,6 +1,12 @@
 <script setup>
 import NavbarComponent from '@/components/Navbar/NavbarComponent.vue'
 import FooterComponent from '@/components/Footer/FooterComponent.vue'
+import { computed } from 'vue'
+import { useDisplay } from 'vuetify/lib/framework.mjs'
+
+const { mobile } = useDisplay()
+
+const isMobile = computed(() => mobile.value)
 
 function envio() {
   const mensagem = encodeURI(
@@ -13,10 +19,9 @@ function envio() {
 }
 </script>
 <template>
-  <header>
-    <NavbarComponent />
-  </header>
-  <main>
+  <NavbarComponent v-if="!isMobile" />
+
+  <main v-if="!isMobile">
     <div class="container">
       <div class="container-left">
         <h3>Quem somos</h3>
@@ -54,17 +59,56 @@ function envio() {
       </div>
     </div>
   </main>
-  <div class="footer">
+  <div class="footer" v-if="!isMobile">
     <FooterComponent />
   </div>
+
+  <v-layout v-if="isMobile">
+    <NavbarComponent />
+    <v-main>
+      <div class="container">
+        <h3>Quem somos</h3>
+        <p>
+          Na <b>SF SISTEMAS</b>, desenvolvemos soluções tecnológicas inovadoras para impulsionar o
+          crescimento de negócios nos setores de
+          <b>Comércio Varejista, Prestação de Serviços e Pequenas Indústrias</b>. Nossa plataforma é
+          projetada para ser intuitiva, com uma interface padronizada que facilita a operação e
+          reduz significativamente o tempo necessário para treinamento, permitindo que sua equipe
+          alcance resultados excepcionais com rapidez.
+        </p>
+        <p>
+          Nosso sistema garante a emissão de documentos eletrônicos com total conformidade, aderindo
+          estritamente às normativas das Secretarias de Fazenda e mantendo-se constantemente
+          atualizado frente às mudanças legislativas.
+        </p>
+        <div class="container-imagem">
+          <img src="@/assets/images/QuemSomosImgRight.png" alt="" />
+          <button @click="envio">Clique aqui e fale com nosso time</button>
+        </div>
+        <p>
+          Equipado com ferramentas avançadas de análise gerencial, o <b>SAFI</b> oferece aos
+          gestores uma visão holística do ciclo de atendimento ao cliente. Isso não só facilita a
+          tomada de decisões informadas, mas também consolida todas as informações comerciais,
+          financeiras e produtivas em um único ponto de acesso,
+          <b>otimizando o processo decisório e impulsionando a lucratividade do seu negócio.</b>
+        </p>
+        <p>
+          Escolha o <b>SAFI</b> para elevar a eficiência operacional da sua empresa, ganhando
+          agilidade e competitividade no mercado, reduzindo tempos de execução e elevando a
+          produtividade do seu time.
+        </p>
+      </div>
+      <FooterComponent />
+    </v-main>
+  </v-layout>
 </template>
 <style scoped>
 main {
   background-color: var(--cinza-principal);
   height: 89vh;
 }
-.footer {
-  position: absolute;
+footer {
+  position: fixed;
   bottom: 0;
   right: 0;
 }
@@ -425,6 +469,169 @@ main {
     right: calc(175px * 1024 / 1920);
     bottom: calc(120px * 1024 / 1024);
     z-index: 1;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .container h3 {
+    font-family: Be Vietnam Pro, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #d2d2d2;
+  }
+
+  .container p {
+    font-family: Be Vietnam Pro, sans-serif;
+    font-size: 1rem;
+    color: #d2d2d2;
+    width: 75%;
+    text-align: justify;
+  }
+
+  footer {
+    position: fixed;
+    z-index: 2;
+    bottom: 0;
+    right: 0;
+  }
+
+  .container-imagem::after {
+    content: '';
+    height: 600px;
+    width: 600px;
+    position: absolute;
+    right: 5%;
+    z-index: 0;
+    border-radius: 100%;
+    background-color: rgba(237, 237, 237, 0.23);
+  }
+
+  .container-imagem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+  }
+
+  .container-imagem img {
+    z-index: 1;
+    width: 80%;
+  }
+
+  .container-imagem button {
+    z-index: 1;
+    font-family: Be Vietnam Pro, sans-serif;
+    width: 50%;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    background-color: var(--azul-principal);
+    color: white;
+    text-decoration: underline;
+  }
+}
+@media screen and (max-width: 700px) {
+  .container-imagem::after {
+    height: calc(600px * 700 / 820);
+    width: calc(600px * 700 / 820);
+  }
+
+  .container-imagem {
+    margin: calc(3rem * 700 / 820) 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .container-imagem::after {
+    content: '';
+    height: calc(600px * 600 / 820);
+    width: calc(600px * 600 / 820);
+    position: absolute;
+    right: 5%;
+    z-index: 0;
+    border-radius: 100%;
+    background-color: rgba(237, 237, 237, 0.23);
+  }
+
+  .container-imagem {
+    margin: calc(3rem * 600 / 820) 0;
+  }
+}
+@media screen and (max-width: 500px) {
+  .container-imagem::after {
+    content: '';
+    height: calc(600px * 500 / 820);
+    width: calc(600px * 500 / 820);
+    position: absolute;
+    right: 5%;
+    z-index: 0;
+    border-radius: 100%;
+    background-color: rgba(237, 237, 237, 0.23);
+  }
+
+  .container-imagem {
+    margin: calc(3rem * 500 / 820) 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  .container-imagem::after {
+    content: '';
+    height: calc(600px * 400 / 820);
+    width: calc(600px * 400 / 820);
+    position: absolute;
+    right: 5%;
+    z-index: 0;
+    border-radius: 100%;
+    background-color: rgba(237, 237, 237, 0.23);
+  }
+  .container-imagem {
+    margin: calc(3rem * 400 / 820) 0;
+  }
+}
+@media screen and (max-width: 300px) {
+  .container-imagem::after {
+    content: '';
+    height: calc(600px * 300 / 820);
+    width: calc(600px * 300 / 820);
+    position: absolute;
+    right: 5%;
+    z-index: 0;
+    border-radius: 100%;
+    background-color: rgba(237, 237, 237, 0.23);
+  }
+
+  .container-imagem {
+    margin: calc(3rem * 300 / 820) 0;
+  }
+
+  .container h3 {
+    font-size: 1rem;
+  }
+
+  .container p {
+    font-size: 0.7rem;
+  }
+
+  .container-imagem button {
+    width: 80%;
+    font-size: 0.7rem;
   }
 }
 </style>  
