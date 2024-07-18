@@ -403,52 +403,52 @@ nav .linkativo::before {
   }
 
   .link-mobile {
-    font-size: calc(1rem * 820 / 820);
+    font-size: 1rem;
     color: white;
     text-decoration: none;
   }
 
   .button-mobile {
-    font-size: calc(1rem * 820 / 820);
+    font-size: 1rem;
     color: var(--azul-principal);
     background-color: white;
   }
 }
 @media screen and (max-width: 600px) {
   .link-mobile {
-    font-size: calc(1rem * 600 / 820);
+    font-size: 1rem;
     color: white;
     text-decoration: none;
   }
 
   .button-mobile {
-    font-size: calc(1rem * 600 / 820);
+    font-size: 1rem;
     color: var(--azul-principal);
     background-color: white;
   }
 }
 @media screen and (max-width: 400px) {
   .link-mobile {
-    font-size: calc(1rem * 400 / 820);
+    font-size: 1rem;
     color: white;
     text-decoration: none;
   }
 
   .button-mobile {
-    font-size: calc(1rem * 400 / 820);
+    font-size: 1rem;
     color: var(--azul-principal);
     background-color: white;
   }
 }
 @media screen and (max-width: 300px) {
   .link-mobile {
-    font-size: calc(1rem * 300 / 820);
+    font-size: 1rem;
     color: white;
     text-decoration: none;
   }
 
   .button-mobile {
-    font-size: calc(1rem * 300 / 820);
+    font-size: 1rem;
     color: var(--azul-principal);
     background-color: white;
   }

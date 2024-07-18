@@ -913,7 +913,7 @@ main {
   }
 
   .container-top h1 {
-    font-size: 1.8rem;
+    font-size: 1rem;
     font-family: Be Vietnam Pro, sans-serif;
     font-weight: 700;
     color: white;
@@ -924,9 +924,9 @@ main {
   }
 
   .container-top h4 {
-    font-size: 0.8;
+    font-size: 0.5;
     text-align: justify;
-    width: 65%;
+    width: 75%;
     font-family: Be Vietnam Pro, sans-serif;
     color: white;
     font-weight: 400;
@@ -944,7 +944,7 @@ main {
 
   .homem-home {
     position: absolute;
-    height: 400px;
+    height: 280px;
     bottom: 0;
     right: 0;
   }
